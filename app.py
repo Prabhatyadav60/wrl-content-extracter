@@ -3,13 +3,7 @@ import requests
 import toml
 from bs4 import BeautifulSoup
 
-try:
-    config = toml.load("config.toml")
-    gemini_api_key = config.get("gemini", {}).get("api_key")
-except Exception as e:
-    gemini_api_key = None
-    st.error(f"Error loading config.toml: {e}")
-
+gemini_api_key = st.secrets.get("gemini", {}).get("api_key", None)
 
 def call_gemini_api(text, images):
     """
